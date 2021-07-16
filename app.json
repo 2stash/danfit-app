@@ -17,13 +17,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "come.DanFit.wfhwod",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "come.DanFit.wfhwod",
+      "versionCode": 1,
+      "permissions":["NOTIFICATIONS", "USER_FACING_NOTIFICATIONS"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
