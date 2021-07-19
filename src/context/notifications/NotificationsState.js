@@ -23,12 +23,10 @@ const NotificationsState = (props) => {
   const setLoading = () => dispatch({ type: SET_LOADING });
 
   const getAsyncStoredNotifications = async () => {
-    console.log("getAsyncStoredNotifications");
     setLoading();
 
     try {
       const jsonValue = await AsyncStorage.getItem("@DanFit_notifications");
-      console.log("getstorage");
       if (jsonValue != null) {
         dispatch({
           type: GET_NOTIFICATIONS,
@@ -37,13 +35,11 @@ const NotificationsState = (props) => {
       }
     } catch (e) {
       // error reading value
-      console.log("catch1");
       console.log(e);
     }
   };
 
   const saveNotificationsToStorage = async (notifications) => {
-    console.log("saveNotificationsToStorage");
     try {
       const jsonValue = JSON.stringify(notifications);
       await AsyncStorage.setItem("@DanFit_notifications", jsonValue);
@@ -53,7 +49,6 @@ const NotificationsState = (props) => {
   };
 
   const deleteNotificationsFromStorage = async () => {
-    console.log("deleteNotificationsFromStorage");
     try {
       await AsyncStorage.removeItem("@DanFit_notifications");
       dispatch({ type: CLEAR_NOTIFICATIONS });
@@ -63,7 +58,6 @@ const NotificationsState = (props) => {
   };
 
   const setNotifications = (notifications) => {
-    console.log("setNotifications");
     dispatch({ type: SET_NOTIFICATIONS, payload: notifications });
   }
 

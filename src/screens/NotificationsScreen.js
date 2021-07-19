@@ -3,12 +3,10 @@ import Constants from "expo-constants";
 import {
   Text,
   View,
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
   TouchableOpacity,
   Button,
-  Switch
+  Switch,
+  ScrollView
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -18,8 +16,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import NotificationsContext from "../context/notifications/notificationsContext";
 
 import constants from "../utils/constants";
-
-import { dayOfTheWeek } from "../utils/dayOfTheWeek";
+import { timeFormater } from "../utils/timeFormater";
+import {sortNotificationsByDate} from "../utils/sortNotificationsByDate"
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -36,7 +34,6 @@ const NotificationsScreen = ({ navigation }) => {
   const responseListener = useRef();
 
   const [deleteButton, setDeleteButton] = useState(false)
-  const [deletionInProcess, setDeletionInProcess] = useState(false)
 
   const notificationContext = useContext(NotificationsContext);
 
@@ -53,7 +50,6 @@ const NotificationsScreen = ({ navigation }) => {
     loading,
     notifications,
     saveNotificationsToStorage,
-    getAsyncStoredNotifications,
     deleteNotificationsFromStorage,
     setNotifications
   } = notificationContext;
@@ -68,24 +64,40 @@ const NotificationsScreen = ({ navigation }) => {
   };
 
   const handleConfirm = async (date) => {
-    console.log("A date has been picked: ", date);
-    try {
+    let now = Date.now();
+    if(date < now){
+      date.setDate(date.getDate() + 1);
       const identifier = await schedulePushNotification(date);
-
       let tempArray = notifications;
       tempArray.push({
         hour: date.getHours(),
         minute: date.getMinutes(),
         on: true,
-        identifier: identifier,
+        identifier: identifier
       });
+      sortNotificationsByDate(tempArray)
       setNotifications(tempArray)
       saveNotificationsToStorage(tempArray);
-      console.log(tempArray);
-      console.log(identifier)
-    } catch (error) {
-      console.log(error);
     }
+    else {
+      try {
+        const identifier = await schedulePushNotification(date);
+  
+        let tempArray = notifications;
+        tempArray.push({
+          hour: date.getHours(),
+          minute: date.getMinutes(),
+          on: true,
+          identifier: identifier,
+        });
+        sortNotificationsByDate(tempArray)
+        setNotifications(tempArray)
+        saveNotificationsToStorage(tempArray);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
     hideDatePicker();
   };
 
@@ -103,44 +115,48 @@ const NotificationsScreen = ({ navigation }) => {
 
   const switchToggleHandler = async (notification) => {
     if(notification.on == true){
-      console.log(notification)
-      console.log("cancelNotificationHandler")
       cancelNotificationHandler(notification)
     } else{
-      console.log("setNotificationHandler")
       setNotificationHandler(notification)
     } 
   };
 
   const setNotificationHandler = async(notification) => {
     let today = new Date();
-
-    console.log(notification.hour, " " , today.getHours())
-    if(today.getHours() > notification.hour){
-      return;
-    } else if(today.getHours() == notification.hour && today.getMinutes() >= notification.minute){
-      return
-    }
-    today.setHours(notification.hour, notification.minute)
-    console.log('today ', today)
-    try {
+    if(today.getHours() > notification.hour || (today.getHours() == notification.hour && today.getMinutes() >= notification.minute)){
+      today.setHours(notification.hour, notification.minute)
+      today.setDate(today.getDate() + 1);
       const identifier = await schedulePushNotification(today);
-
       let tempArray = notifications;
-
-      tempArray.map((item)=> {
-        if(item.identifier == notification.identifier){
-          item.identifier = identifier
-          item.on = true
-        }
-      })
+  
+        tempArray.map((item)=> {
+          if(item.identifier == notification.identifier){
+            item.identifier = identifier
+            item.on = true
+          }
+        })
       setNotifications(tempArray)
       saveNotificationsToStorage(tempArray);
-      console.log(tempArray);
-      console.log(identifier)
-    } catch (error) {
-      console.log(error);
-    }
+    } else {
+      today.setHours(notification.hour, notification.minute)
+  
+      try {
+        const identifier = await schedulePushNotification(today);
+  
+        let tempArray = notifications;
+  
+        tempArray.map((item)=> {
+          if(item.identifier == notification.identifier){
+            item.identifier = identifier
+            item.on = true
+          }
+        })
+        setNotifications(tempArray)
+        saveNotificationsToStorage(tempArray);
+      } catch (error) {
+        console.log(error);
+      }
+    }   
   }
 
   const clearRemindersHandler = () => {
@@ -148,18 +164,24 @@ const NotificationsScreen = ({ navigation }) => {
   };
 
   const editNotificationsHandler = () => {
-    console.log("editNotificationsHandler")
     setDeleteButton((status)=> !status)
 
   }
 
   const deleteSelectedNotificationFromStorage = (notification) => {
     let tempArray = notifications;
-    console.log(tempArray , " Temp array")
     let filteredTempArray = tempArray.filter((item)=> item.identifier != notification.identifier )
-    console.log(filteredTempArray, " filtered temp array")
-    setNotifications(filteredTempArray)
+    
     saveNotificationsToStorage(filteredTempArray);
+    setNotifications(filteredTempArray)
+
+    if(notification.on == true){
+      unschedulerReminder(notification);
+    }
+  }
+
+  const unschedulerReminder = async (notification) =>{
+    await Notifications.cancelScheduledNotificationAsync(notification.identifier);
   }
 
 
@@ -175,7 +197,6 @@ const NotificationsScreen = ({ navigation }) => {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
       });
 
     return () => {
@@ -215,11 +236,12 @@ const NotificationsScreen = ({ navigation }) => {
           <Text>loading notifications</Text>
         </View>
       ) : (
-        notifications.map((notification, idx) => (
+        <ScrollView style={{height:"100%"}}>
+        {notifications.map((notification, idx) => (
           <View key={notification.identifier} style={{height:75,width:"100%", backgroundColor:constants.grey,borderBottomWidth:1, flexDirection:'row', alignItems:'center'}}>
             <View style={{width:'80%'}}>
             <Text style={{fontSize:28, marginLeft:20}}>
-              {notification.hour}:{notification.minute} 
+            {timeFormater(notification.hour,notification.minute)}
             </Text>
             </View>
             {deleteButton ? (<Button title="Delete" onPress={deleteSelectedNotificationFromStorage.bind(this,notification)}/>) : (<Switch onValueChange={switchToggleHandler.bind(this, notification)} value={notification.on}/>)
@@ -227,7 +249,8 @@ const NotificationsScreen = ({ navigation }) => {
             }
             
           </View>
-        ))
+        ))}
+        </ScrollView>
       )}
 
       <View>
@@ -239,9 +262,9 @@ const NotificationsScreen = ({ navigation }) => {
         />
       </View>
 
-      <TouchableOpacity onPress={clearRemindersHandler}>
+      {/* <TouchableOpacity onPress={clearRemindersHandler}>
         <Text>Clear Reminders</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -251,9 +274,10 @@ async function schedulePushNotification(today) {
     content: {
       title: "DanFit",
       body: "Time to workout!" + today,
-      data: { data: "goes here" },
+      // data: { data: "goes here" },
     },
-    trigger: today,
+    trigger: {date: today, repeats:true}
+  
   });
 }
 
@@ -283,7 +307,6 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");
   }
