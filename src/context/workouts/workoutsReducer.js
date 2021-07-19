@@ -1,4 +1,3 @@
-import { ActionSheetIOS } from "react-native";
 import {
   GET_WORKOUTS,
   START_WORKOUT,

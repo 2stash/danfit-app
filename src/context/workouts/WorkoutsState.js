@@ -37,8 +37,6 @@ const WorkoutsState = (props) => {
       } catch(e) {
         // remove error
       }
-    
-      console.log('Done.')
   }
 
   const setCurrentWorkout = (workout) => {
@@ -84,7 +82,6 @@ const WorkoutsState = (props) => {
     } catch (e) {
       // error reading value
       console.log(e);
-      console.log("getasync");
     }
   };
 
@@ -118,7 +115,6 @@ const WorkoutsState = (props) => {
     } catch (e) {
       // error reading value
       console.log(e);
-      console.log("getasync");
     }
   };
 
@@ -139,12 +135,10 @@ const WorkoutsState = (props) => {
     } catch (e) {
       // error reading value
       console.log(e);
-      console.log("getasync");
     }
   }
 
   const saveCurrentWorkoutToStorage = async (currentWorkout) => {
-    console.log("saveCurrentWorkoutToStorage");
     try {
       const jsonValue = JSON.stringify(currentWorkout);
       await AsyncStorage.setItem("WFH-current-workout", jsonValue);

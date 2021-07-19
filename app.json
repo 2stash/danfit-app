@@ -28,7 +28,8 @@
       },
       "package": "come.DanFit.wfhwod",
       "versionCode": 1,
-      "permissions":["NOTIFICATIONS", "USER_FACING_NOTIFICATIONS"]
+      "permissions":["NOTIFICATIONS", "USER_FACING_NOTIFICATIONS"],
+      "useNextNotificationsApi": true
     },
     "web": {
       "favicon": "./assets/favicon.png"

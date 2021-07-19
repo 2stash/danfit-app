@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
+
 import {
   Text,
   View,
@@ -10,6 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 
+
 import WorkoutsContext from "../context/workouts/workoutsContext";
 
 import CurrentWorkout from "./CurrentWorkout";
@@ -20,6 +22,7 @@ import { dayOfTheWeek } from "../utils/dayOfTheWeek";
 import constants from "../utils/constants";
 
 const DanWod = ({ navigation }) => {
+  
   const workoutContext = useContext(WorkoutsContext);
 
   const {
@@ -45,6 +48,8 @@ const DanWod = ({ navigation }) => {
   let monthCheck = today.getMonth();
   let dayCheck = today.getDate();
   let dayOfWeekName = dayOfTheWeek(today);
+
+
 
   const increaseSets = () => {
     setSets(() => sets + 1);
@@ -158,7 +163,7 @@ const DanWod = ({ navigation }) => {
         <CurrentWorkout />
       ) : (
         <View style={styles.container}>
-          <Text style={styles.title}>{dayOfWeekName} WFH WOD</Text>
+          <Text style={styles.title}> Create {dayOfWeekName}'s' Workout</Text>
 
           {/* Start of exercise builder */}
           <ScrollView style={{ width: "90%" }}>
@@ -401,7 +406,8 @@ const DanWod = ({ navigation }) => {
             </View>
 
             {/* End of Exercises */}
-            <View style={{ marginTop: 10 }}>
+
+            <View style={{ marginTop: 10, marginBottom:25 }}>
               <Button title='Start Workout' onPress={startWorkout} />
             </View>
           </ScrollView>
@@ -482,5 +488,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 });
+
+
 
 export default DanWod;
