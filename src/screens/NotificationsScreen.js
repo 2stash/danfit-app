@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   Button,
   Switch,
-  ScrollView,
-  useColorScheme
+  ScrollView
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -33,8 +32,6 @@ const NotificationsScreen = ({ navigation }) => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-
-  const isDarkMode = useColorScheme() === 'dark';
 
   const [deleteButton, setDeleteButton] = useState(false)
 
@@ -262,7 +259,7 @@ const NotificationsScreen = ({ navigation }) => {
           mode='time'
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          style={{backgroundColor: isDarkMode ? '#000': '#fff'}}
+          style={{backgroundColor: constants.grey}}
         />
       </View>
 
