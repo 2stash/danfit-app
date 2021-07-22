@@ -274,7 +274,7 @@ async function schedulePushNotification(today) {
       body: "Time to workout!" + today,
       // data: { data: "goes here" },
     },
-    trigger: {date: today, repeats:true, }
+    trigger: {hour: today.getHours(), minute: today.getMinutes(), repeats:true, }
   
   });
 }
