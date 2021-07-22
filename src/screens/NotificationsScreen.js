@@ -233,7 +233,7 @@ const NotificationsScreen = ({ navigation }) => {
     <View>
       {loading ? (
         <View>
-          <Text>loading notifications</Text>
+          <Text style={{justifyContent:"center",textAlign:"center",alignItems:"center", fontSize:22}}>No notifications</Text>
         </View>
       ) : (
         <ScrollView style={{height:"100%"}}>
@@ -263,9 +263,6 @@ const NotificationsScreen = ({ navigation }) => {
         />
       </View>
 
-      {/* <TouchableOpacity onPress={clearRemindersHandler}>
-        <Text>Clear Reminders</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
@@ -277,21 +274,10 @@ async function schedulePushNotification(today) {
       body: "Time to workout!" + today,
       // data: { data: "goes here" },
     },
-    trigger: {date: today, repeats:true}
+    trigger: {date: today, repeats:true, }
   
   });
 }
-
-// function schedulePushNotification(today) {
-//   Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: "You've got mail! 📬",
-//       body: "Here is the notification body",
-//       data: { data: "goes here" },
-//     },
-//     trigger: today,
-//   });
-// }
 
 async function registerForPushNotificationsAsync() {
   let token;

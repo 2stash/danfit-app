@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import WorkoutsReducer from "./workoutsReducer";
 import WorksoutsContext from "./workoutsContext";
 import DATA from "./workoutsData";
-import OLDDATA from "./completedWorkoutsData";
+
 import {
   GET_WORKOUTS,
   START_WORKOUT,

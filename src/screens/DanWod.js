@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   Text,
   View,
   SafeAreaView,
-  FlatList,
   StyleSheet,
   Button,
   TouchableOpacity,
@@ -21,14 +20,11 @@ import UnfinishedWorkout from "./UnfinishedWorkout";
 import { dayOfTheWeek } from "../utils/dayOfTheWeek";
 import constants from "../utils/constants";
 
-const DanWod = ({ navigation }) => {
+const DanWod = () => {
   
   const workoutContext = useContext(WorkoutsContext);
 
   const {
-    workouts,
-    getWorkouts,
-    loading,
     setCurrentWorkout,
     currentWorkout,
     workoutInProcess,
@@ -48,8 +44,6 @@ const DanWod = ({ navigation }) => {
   let monthCheck = today.getMonth();
   let dayCheck = today.getDate();
   let dayOfWeekName = dayOfTheWeek(today);
-
-
 
   const increaseSets = () => {
     setSets(() => sets + 1);
@@ -122,8 +116,6 @@ const DanWod = ({ navigation }) => {
   };
 
   const startWorkout = () => {
-    // yesterday date to test
-    // let fakeDate = new Date('2021/7/6')
     let exerciseArray = [
       { pushups: pushups },
       { situps: situps },
@@ -422,12 +414,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // padding: 10,
     backgroundColor: constants.backgroundColor,
   },
   container: {
     flex: 1,
-    // borderRadius: 10,b
     shadowColor: "blue",
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 2 },
@@ -450,7 +440,6 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
   },
-
   text: {
     textAlign: "center",
     fontSize: 18,
@@ -488,7 +477,5 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 });
-
-
 
 export default DanWod;

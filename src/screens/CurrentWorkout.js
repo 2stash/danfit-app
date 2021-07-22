@@ -2,8 +2,6 @@ import React, { useContext, useState } from "react";
 import {
   Text,
   View,
-  SafeAreaView,
-  FlatList,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -38,12 +36,7 @@ const CurrentWorkout = () => {
   const workoutContext = useContext(WorkoutsContext);
 
   const {
-    workouts,
-    getWorkouts,
-    loading,
-    setCurrentWorkout,
     currentWorkout,
-    workoutInProcess,
     setWorkoutDoneReducer,
     saveCurrentWorkoutToStorage,
   } = workoutContext;
@@ -154,7 +147,6 @@ const CurrentWorkout = () => {
         />)  
       }
 
-
         {/* squats set */}
 
         {currentWorkout.workout[2].squats != 0 ?
@@ -175,9 +167,7 @@ const CurrentWorkout = () => {
           setSetDone={setRepsDone}
           zeroReps={true}
         />)
-
         }
-
 
         {/* burpees set */}
         {currentWorkout.workout[3].burpees != 0 ?
@@ -198,9 +188,7 @@ const CurrentWorkout = () => {
             setSetDone={setRepsDone}
             zeroReps={true}
           />)
-
         }
-       
 
         {/* pullups set */}
         {currentWorkout.workout[4].pullups != 0 ?
@@ -222,7 +210,6 @@ const CurrentWorkout = () => {
           zeroReps={true}
         />)  
       }
-
 
         <TouchableOpacity
           style={[

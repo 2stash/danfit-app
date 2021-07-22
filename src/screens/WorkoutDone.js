@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Text,
   View,
-  SafeAreaView,
-  FlatList,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -16,13 +14,6 @@ const WorkoutDone = () => {
   const workoutContext = useContext(WorkoutsContext);
 
   const {
-    workouts,
-    getWorkouts,
-    loading,
-    setCurrentWorkout,
-    currentWorkout,
-    workoutInProcess,
-    setWorkoutDoneReducer,
     completedWorkout,
     leaveWorkoutDoneScreen,
   } = workoutContext;
