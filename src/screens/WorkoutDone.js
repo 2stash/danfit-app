@@ -35,10 +35,10 @@ const WorkoutDone = () => {
       >
         <View>
           <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
-            {dayOfWeekName} WFH WOD
+            {dayOfWeekName}'s Workout
           </Text>
         </View>
-        <View>
+        {/* <View>
           <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
             Completed!!!
           </Text>
@@ -47,7 +47,7 @@ const WorkoutDone = () => {
           <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
             Congratulations
           </Text>
-        </View>
+        </View> */}
       </View>
 
       <View

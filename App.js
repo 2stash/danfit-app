@@ -23,7 +23,7 @@ const Stack = createStackNavigator();
 const DwodStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="dwod" component={DanWod} options={{title:"Today's Workout"}}/>
+      <Stack.Screen name="dwod" component={DanWod} options={{title:""}}/>
     </Stack.Navigator>
   )
 }
@@ -31,7 +31,7 @@ const DwodStack = () => {
 const ReminderStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{title:"Reminders"}}/>
+      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{title:"Reminders", headerTitleAlign: 'center'}}/>
     </Stack.Navigator>
   )
 }

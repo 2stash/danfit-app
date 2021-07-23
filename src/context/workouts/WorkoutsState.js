@@ -50,6 +50,7 @@ const WorkoutsState = (props) => {
   };
 
   const setWorkoutDoneReducer = (workout) => {
+    setLoading();
     dispatch({ type: SET_WORKOUT_DONE, payload: workout });
     let newCompletedWorkoutData = [workout, ...state.allCompletedWorkouts];
     deleteCurrentWorkoutFromStorage();

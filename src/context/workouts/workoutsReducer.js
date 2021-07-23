@@ -34,6 +34,7 @@ export default (state, action) => {
       return {
         ...state,
         workoutDone: true,
+        loading:false,
         completedWorkout: action.payload,
         allCompletedWorkouts: [action.payload, ...state.allCompletedWorkouts],
       };

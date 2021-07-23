@@ -1,32 +1,23 @@
-
 export const totalsCalculator = (workouts) => {
   let today = new Date();
   let dayOfWeek = today.getDay();
   let dayOfMonth = today.getDate();
   let diff = dayOfMonth - dayOfWeek;
   let startOfWeek = new Date();
-  startOfWeek.setDate(diff)
-
-  let startOfWeekMinusOne = new Date(startOfWeek)
-  startOfWeekMinusOne.setDate(-1)
-  // console.log(startOfWeekMinusOne,  " start of week")
+  startOfWeek.setDate(diff);
+  startOfWeek.setHours(0);
+  startOfWeek.setMinutes(0);
   const thisWeeksWorkouts = [];
-  let repeat = true;
 
-  // while (repeat){
-    
-  // }
-  // for(let i = 0; i < 7;i++){
-  //     // let workoutDate = thisWeeksWorkouts[i];
-  //     // let day = workoutDate.getDate()
-  //     // let month = workoutDate.getMonth();
-  //     // let year = workoutDate.getFullYear();
-
-  //     // if(year == startOfWeek.getFullYear() && month >= startOfWeek.getMonth() && day >= startOfWeek.)
-  //     // console.log(workouts[i].date , " i " , i )
-  //     if(workouts[i].date > startOfWeekMinusOne){
-  //       console.log(workouts[i] , "if was true")
-  //     }
-
-  // }
-}
+  let loop = 50;
+  if(workouts.length < 50){
+    loop = workouts.length
+  }
+  
+  for (let i = 0; i < loop; i++) {
+    if (Date.parse(workouts[i].date) > Date.parse(startOfWeek)) {
+      thisWeeksWorkouts.push(workouts[i]);
+    }
+  }
+  return thisWeeksWorkouts;
+};
