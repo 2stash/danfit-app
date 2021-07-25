@@ -25,6 +25,7 @@ import constants from './src/utils/constants'
 import DanWod from "./src/screens/DanWod";
 import NotificationsScreen from "./src/screens/NotificationsScreen";
 import Profile from "./src/screens/Profile";
+import { color } from "react-native-reanimated";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -73,8 +74,8 @@ function MyTabs() {
     <Tab.Navigator
       tabBarOptions= {{
           style: { 
-            height: 85, 
-            backgroundColor: constants.background, borderTopWidth:0 ,
+            height: 65, 
+            backgroundColor: constants.mainDarkBG, borderTopWidth:0 ,
             // backgroundColor: 'transparent',
             // position: 'absolute',
             // left: 0,
@@ -83,53 +84,78 @@ function MyTabs() {
             // elevation: 0,
           
           },
-          tabBarLabel:() => {return null},
+          // tabBarLabel:() => {return null},
           showLabel:false
-        }}
-
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === "dwod") {
-            iconName = focused ? "barbell-outline" : "barbell-outline";
-          } else if (route.name === "Notifications") {
-            iconName = focused ? "alarm-outline" : "alarm-outline";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "person-outline" : "person-outline";
-          }
-          return (
-            <View
-              style={{
-                backgroundColor: "white",
-                height: 50,
-                width: 50,
-                borderRadius:25,
-                justifyContent: "center",
-                alignItems: "center",
-                borderColor:color,
-                borderWidth:2
-                // marginBottom: 15,
-              }}
-            >
-              <Ionicons name={iconName} size={size} color={color} />
-              </View>
-          );
-        },
-        
-      })}
+        }}        
     >
       <Tab.Screen
         name='dwod'
         component={DwodStack}
-        
+        options={{
+          tabBarIcon:({focused}) => (
+            <View
+            style={{
+              backgroundColor: focused ? constants.mainTextColor: constants.mainDarkBG,
+              height: 60,
+              width: 60,
+              borderRadius:30,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor:constants.mainLightBlue,
+              borderWidth:2
+            }}
+          >
+            <Ionicons name={focused ? "barbell-sharp":"barbell-outline"} size={focused ? 32 : 24} color={constants.mainLightBlue}
+            
+            />
+            </View>
+          )
+        }}
       />
       <Tab.Screen
         name='Notifications'
         component={ReminderStack}
-        
+        options={{
+          tabBarIcon:({focused}) => (
+            <View
+            style={{
+              backgroundColor: focused ? constants.mainTextColor: constants.mainDarkBG,
+              height: 60,
+              width: 60,
+              borderRadius:30,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor:constants.mainOrange,
+              borderWidth:2
+            }}
+          >
+            <Ionicons name={focused ? "alarm":"alarm-outline"} size={focused ? 32 : 24} color={constants.mainOrange} />
+            </View>
+          )
+        }}
+
+
       />
-      <Tab.Screen name='Profile' component={Profile}      />
+      <Tab.Screen name='Profile' component={Profile}
+         options={{
+          tabBarIcon:({focused}) => (
+            <View
+            style={{
+              backgroundColor: focused ? constants.mainTextColor: constants.mainDarkBG,
+              height: 60,
+              width: 60,
+              borderRadius:30,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor:constants.mainDarkBlue,
+              borderWidth:2
+            }}
+          >
+            <Ionicons name={focused ? "person":"person-outline"} size={focused ? 32 : 24} color={constants.mainDarkBlue} />
+            </View>
+          )
+        }}
+        />
     </Tab.Navigator>
   );
 }
