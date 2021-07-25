@@ -1,15 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import {
   Text,
   View,
   SafeAreaView,
-  FlatList,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Button,
 } from "react-native";
 
+import MyAppText from "../components/MyAppText";
+import GreyBorder from "../components/GreyBorder";
+import SafeViewAndroid from "../components/SafeViewAndroid";
 import WorkoutsContext from "../context/workouts/workoutsContext";
 import constants from "../utils/constants";
 import { totalsCalculator } from "../utils/totalsCalculator";
@@ -28,7 +29,7 @@ const Profile = () => {
   if (appLoaded == false) {
     return (
       <View>
-        <Text style={{ textAlign: "center" }}>Loading</Text>
+        <MyAppText style={{ textAlign: "center" }}>Loading</MyAppText>
       </View>
     );
   }
@@ -37,9 +38,9 @@ const Profile = () => {
     if (allCompletedWorkouts == undefined || allCompletedWorkouts.length == 0) {
       return (
         <View>
-          <Text style={{ textAlign: "center" }}>
+          <MyAppText style={{ textAlign: "center" }}>
             Complete your first workout!
-          </Text>
+          </MyAppText>
         </View>
       );
     }
@@ -63,32 +64,34 @@ const Profile = () => {
     }
 
     return (
-      <ScrollView style={{ marginTop: 25 }}>
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>LifeTime Pushups</Text>
-          <Text style={styles.repsText}>{totalPushups}</Text>
-        </View>
+      <SafeAreaView style={{ marginTop: 15 }}>
+      <ScrollView >
+        <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
+          <MyAppText style={styles.exerciseText}>Pushups:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalPushups}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>LifeTime Situps</Text>
-          <Text style={styles.repsText}>{totalSitups}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}>
+          <MyAppText style={styles.exerciseText}>Situps:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalSitups}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>LifeTime Squats</Text>
-          <Text style={styles.repsText}>{totalSquats}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainDarkBlue}>
+          <MyAppText style={styles.exerciseText}>Squats:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalSquats}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>LifeTime Burpees</Text>
-          <Text style={styles.repsText}>{totalBurpees}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
+          <MyAppText style={styles.exerciseText}>Burpees:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalBurpees}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>LifeTime Pullups</Text>
-          <Text style={styles.repsText}>{totalPullups}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}>
+          <MyAppText style={styles.exerciseText}>Pullups:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalPullups}</MyAppText>
+        </GreyBorder>
       </ScrollView>
+      </SafeAreaView>
     );
   };
 
@@ -96,9 +99,9 @@ const Profile = () => {
     if (allCompletedWorkouts == undefined || allCompletedWorkouts.length == 0) {
       return (
         <View>
-          <Text style={{ textAlign: "center" }}>
+          <MyAppText style={{ textAlign: "center" }}>
             Complete your first workout!
-          </Text>
+          </MyAppText>
         </View>
       );
     }
@@ -110,7 +113,7 @@ const Profile = () => {
     if (thisWeeksWorkouts.length == 0) {
       return (
         <View>
-          <Text style={{ textAlign: "center" }}>No workouts this week</Text>
+          <MyAppText style={{ textAlign: "center" }}>No workouts this week</MyAppText>
         </View>
       );
     }
@@ -132,41 +135,41 @@ const Profile = () => {
     }
 
     return (
-      <ScrollView style={{ marginTop: 25 }}>
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>Pushups:</Text>
-          <Text style={styles.repsText}>{totalPushups}</Text>
-        </View>
+      <ScrollView style={{ marginTop: 15 }}>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
+          <MyAppText style={styles.exerciseText}>Pushups:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalPushups}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>Situps:</Text>
-          <Text style={styles.repsText}>{totalSitups}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}>
+          <MyAppText style={styles.exerciseText}>Situps:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalSitups}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>Squats</Text>
-          <Text style={styles.repsText}>{totalSquats}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainDarkBlue}>
+          <MyAppText style={styles.exerciseText}>Squats:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalSquats}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>Burpees</Text>
-          <Text style={styles.repsText}>{totalBurpees}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
+          <MyAppText style={styles.exerciseText}>Burpees:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalBurpees}</MyAppText>
+        </GreyBorder>
 
-        <View style={styles.totalView}>
-          <Text style={styles.exerciseText}>Pullups</Text>
-          <Text style={styles.repsText}>{totalPullups}</Text>
-        </View>
+        <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}>
+          <MyAppText style={styles.exerciseText}>Pullups:</MyAppText>
+          <MyAppText style={styles.repsText}>{totalPullups}</MyAppText>
+        </GreyBorder>
       </ScrollView>
     );
   };
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:constants.background}}>
+    <SafeAreaView style={[SafeViewAndroid.AndroidSafeArea, {flex:1,backgroundColor:constants.mainDarkBG}]}>
       <View>
-        <Text style={{ fontSize: 28, textAlign: "center", marginTop: 10 }}>
+        <MyAppText style={{ textAlign: "center", marginTop: 10 }}>
           Totals
-        </Text>
+        </MyAppText>
       </View>
       <View
         style={{
@@ -204,11 +207,11 @@ const Profile = () => {
         </TouchableOpacity>
       </View>
 
-      <View>
+      <View style={{flex:1}}>
         {toggle == true ? (
-          <WeeklyTotal style={{ flex: 1 }} />
+          <WeeklyTotal />
         ) : (
-          <Total style={{ flex: 1 }} />
+          <Total />
         )}
       </View>
     </SafeAreaView>
@@ -223,6 +226,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
+    borderRadius:10
   },
   buttonText: { color: "white", textAlign: "center", fontSize: 18 },
   exerciseText: { textAlign: "center", fontSize: 28 },
