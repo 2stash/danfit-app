@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: constants.backgroundColor,
+    backgroundColor: constants.background,
   },
   container: {
     flex: 1,
@@ -428,7 +428,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // margin: 10,
     width: "100%",
-    backgroundColor: constants.backgroundColor,
+    backgroundColor: constants.background,
   },
   mainTitle: {
     marginTop: 10,

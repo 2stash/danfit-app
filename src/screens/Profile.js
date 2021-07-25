@@ -162,7 +162,7 @@ const Profile = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:constants.background}}>
       <View>
         <Text style={{ fontSize: 28, textAlign: "center", marginTop: 10 }}>
           Totals

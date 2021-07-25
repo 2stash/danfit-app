@@ -236,7 +236,7 @@ const NotificationsScreen = ({ navigation }) => {
           <Text style={{justifyContent:"center",textAlign:"center",alignItems:"center", fontSize:22}}>No notifications</Text>
         </View>
       ) : (
-        <ScrollView style={{height:"100%"}}>
+        <ScrollView style={{height:"100%", backgroundColor: constants.background}}>
         {notifications.map((notification, idx) => (
           <View key={notification.identifier} style={{height:75,width:"100%", backgroundColor:constants.grey,borderBottomWidth:1, flexDirection:'row', alignItems:'center'}}>
             <View style={{width:'80%'}}>
