@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Button,
   Switch,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +19,7 @@ import NotificationsContext from "../context/notifications/notificationsContext"
 import constants from "../utils/constants";
 import { timeFormater } from "../utils/timeFormater";
 import {sortNotificationsByDate} from "../utils/sortNotificationsByDate"
+import MyAppText from "../components/MyAppText";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -230,19 +232,20 @@ const NotificationsScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View>
+    <View style={{flex:1}}>
       {loading ? (
         <View>
           <Text style={{justifyContent:"center",textAlign:"center",alignItems:"center", fontSize:22}}>No notifications</Text>
         </View>
       ) : (
-        <ScrollView style={{height:"100%", backgroundColor: constants.background}}>
+        <SafeAreaView style={{flex:1}}>
+        <ScrollView style={{backgroundColor: constants.mainDarkBG}}>
         {notifications.map((notification, idx) => (
-          <View key={notification.identifier} style={{height:75,width:"100%", backgroundColor:constants.grey,borderBottomWidth:1, flexDirection:'row', alignItems:'center'}}>
+          <View key={notification.identifier} style={{height:75,width:"100%", backgroundColor:constants.mainGrey,borderBottomWidth:1, flexDirection:'row', alignItems:'center'}}>
             <View style={{width:'80%'}}>
-            <Text style={{fontSize:28, marginLeft:20}}>
+            <MyAppText style={{fontSize:28, marginLeft:20}}>
             {timeFormater(notification.hour,notification.minute)}
-            </Text>
+            </MyAppText>
             </View>
             {deleteButton ? (<Button title="Delete" onPress={deleteSelectedNotificationFromStorage.bind(this,notification)}/>) : (<Switch onValueChange={switchToggleHandler.bind(this, notification)} value={notification.on}/>)
 
@@ -251,6 +254,7 @@ const NotificationsScreen = ({ navigation }) => {
           </View>
         ))}
         </ScrollView>
+        </SafeAreaView>
       )}
 
       <View>

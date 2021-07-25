@@ -158,7 +158,7 @@ const DanWod = () => {
           <Text style={styles.title}> Create {dayOfWeekName}'s' Workout</Text>
 
           {/* Start of exercise builder */}
-          <ScrollView style={{ width: "90%" }}>
+          <ScrollView >
             <View
               style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
             >
@@ -423,10 +423,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
     elevation: 3,
-    padding: 15,
     justifyContent: "flex-start",
     alignItems: "center",
-    // margin: 10,
     width: "100%",
     backgroundColor: constants.background,
   },
