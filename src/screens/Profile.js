@@ -28,7 +28,7 @@ const Profile = () => {
   if (appLoaded == false) {
     return (
       <View>
-        <Text style={{textAlign:'center'}}>Loading</Text>
+        <Text style={{ textAlign: "center" }}>Loading</Text>
       </View>
     );
   }
@@ -63,42 +63,32 @@ const Profile = () => {
     }
 
     return (
-      <View style={{ marginTop: 25 }}>
-        <Text style={{ textAlign: "center", fontSize: 24 }}>
-          LifeTime Pushups
-        </Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalPushups}
-        </Text>
+      <ScrollView style={{ marginTop: 25 }}>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>LifeTime Pushups</Text>
+          <Text style={styles.repsText}>{totalPushups}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>
-          LifeTime Situps
-        </Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalSitups}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>LifeTime Situps</Text>
+          <Text style={styles.repsText}>{totalSitups}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>
-          LifeTime Squats
-        </Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalSquats}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>LifeTime Squats</Text>
+          <Text style={styles.repsText}>{totalSquats}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>
-          LifeTime Burpees
-        </Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalBurpees}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>LifeTime Burpees</Text>
+          <Text style={styles.repsText}>{totalBurpees}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>
-          LifeTime Pullups
-        </Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalPullups}
-        </Text>
-      </View>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>LifeTime Pullups</Text>
+          <Text style={styles.repsText}>{totalPullups}</Text>
+        </View>
+      </ScrollView>
     );
   };
 
@@ -112,12 +102,10 @@ const Profile = () => {
         </View>
       );
     }
-    let thisWeeksWorkouts = []
+    let thisWeeksWorkouts = [];
     try {
       thisWeeksWorkouts = totalsCalculator(allCompletedWorkouts);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
 
     if (thisWeeksWorkouts.length == 0) {
       return (
@@ -144,32 +132,32 @@ const Profile = () => {
     }
 
     return (
-      <View style={{ marginTop: 25 }}>
-        <Text style={{ textAlign: "center", fontSize: 24 }}>Pushups</Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalPushups}
-        </Text>
+      <ScrollView style={{ marginTop: 25 }}>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>Pushups:</Text>
+          <Text style={styles.repsText}>{totalPushups}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>Situps</Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalSitups}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>Situps:</Text>
+          <Text style={styles.repsText}>{totalSitups}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>Squats</Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalSquats}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>Squats</Text>
+          <Text style={styles.repsText}>{totalSquats}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>Burpees</Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalBurpees}
-        </Text>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>Burpees</Text>
+          <Text style={styles.repsText}>{totalBurpees}</Text>
+        </View>
 
-        <Text style={{ textAlign: "center", fontSize: 24 }}>Pullups</Text>
-        <Text style={{ textAlign: "center", fontSize: 28, marginTop: 15 }}>
-          {totalPullups}
-        </Text>
-      </View>
+        <View style={styles.totalView}>
+          <Text style={styles.exerciseText}>Pullups</Text>
+          <Text style={styles.repsText}>{totalPullups}</Text>
+        </View>
+      </ScrollView>
     );
   };
 
@@ -183,10 +171,10 @@ const Profile = () => {
       <View
         style={{
           flexDirection: "row",
-          width:"100%",
+          width: "100%",
           justifyContent: "center",
           alignItems: "center",
-          alignContent:"center",
+          alignContent: "center",
         }}
       >
         <TouchableOpacity
@@ -234,9 +222,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin:10
+    margin: 10,
   },
   buttonText: { color: "white", textAlign: "center", fontSize: 18 },
+  exerciseText: { textAlign: "center", fontSize: 28 },
+  repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },
+  totalView: { flexDirection: "row", justifyContent: "center" },
 });
 
 export default Profile;
