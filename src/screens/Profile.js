@@ -35,7 +35,7 @@ const Profile = () => {
   }
 
   const Total = () => {
-    if (allCompletedWorkouts == undefined || allCompletedWorkouts.length == 0) {
+    if (allCompletedWorkouts == undefined || allCompletedWorkouts.length == 0 || allCompletedWorkouts == null) {
       return (
         <View>
           <MyAppText style={{ textAlign: "center" }}>
@@ -100,7 +100,7 @@ const Profile = () => {
       return (
         <View>
           <MyAppText style={{ textAlign: "center" }}>
-            Complete your first workout!
+            No Workouts this week!
           </MyAppText>
         </View>
       );

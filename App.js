@@ -61,7 +61,7 @@ function MyTabs() {
     getAsyncStoredNotifications,
   } = notificationContext;
 
-  const { getAsyncStoredWorkouts, getCurrentWorkoutFromStorage, appLoaded } =
+  const { getAsyncStoredWorkouts, getCurrentWorkoutFromStorage, appLoaded, deleteStorage } =
     workoutContext;
 
   useEffect(() => {

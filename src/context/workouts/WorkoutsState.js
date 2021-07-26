@@ -62,7 +62,7 @@ const WorkoutsState = (props) => {
   const saveWorkouts = async (oldWorkouts) => {
     try {
       const jsonValue = JSON.stringify(oldWorkouts);
-      await AsyncStorage.setItem("@storage_Key", jsonValue);
+      await AsyncStorage.setItem("@DanFit_workouts", jsonValue);
     } catch (e) {
       console.log(e);
     }
@@ -72,18 +72,39 @@ const WorkoutsState = (props) => {
     setLoading();
 
     try {
-      const jsonValue = await AsyncStorage.getItem("@storage_Key");
+      const newStorage = await AsyncStorage.getItem("@DanFit_workouts")
 
+      if (newStorage != null) {
+        dispatch({
+          type: GET_COMPLETED_WORKOUTS_FROM_STORAGE,
+          payload: JSON.parse(newStorage),
+        });
+      }
+
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+
+    try {
+      const jsonValue = await AsyncStorage.getItem("@storage_Key");
+ 
       if (jsonValue != null) {
         dispatch({
           type: GET_COMPLETED_WORKOUTS_FROM_STORAGE,
           payload: JSON.parse(jsonValue),
         });
+        await AsyncStorage.setItem("@DanFit_workouts", jsonValue);
+        AsyncStorage.removeItem("@storage_Key")
       }
+
     } catch (e) {
       // error reading value
       console.log(e);
     }
+
+  
+
   };
 
   const discardWorkoutReducer = () => {
@@ -91,7 +112,9 @@ const WorkoutsState = (props) => {
     dispatch({ type: DISCARD_WORKOUT });
   };
 
-  
+  const deleteStorage = () => {
+    AsyncStorage.removeItem("@DanFit_workouts");
+  }
 
   const saveOldWorkoutsReducer = () => {
     let temp = state.currentWorkout
@@ -105,7 +128,7 @@ const WorkoutsState = (props) => {
     setLoading();
 
     try {
-      const jsonValue = await AsyncStorage.getItem("@storage_Key");
+      const jsonValue = await AsyncStorage.getItem("@DanFit_workouts");
 
       if (jsonValue != null) {
         dispatch({
@@ -173,7 +196,8 @@ const WorkoutsState = (props) => {
         getAsyncStoredWorkoutsAfterSave,
         getCurrentWorkoutFromStorage,
         saveCurrentWorkoutToStorage,
-        leaveWorkoutDoneScreen
+        leaveWorkoutDoneScreen,
+        deleteStorage
       }}
     >
       {props.children}
