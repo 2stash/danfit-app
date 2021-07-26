@@ -30,13 +30,13 @@ import { color } from "react-native-reanimated";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const DwodStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name='dwod' component={DanWod} options={{ title: "" }} />
-    </Stack.Navigator>
-  );
-};
+// const DwodStack = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name='dwod' component={DanWod} options={{ title: "" }} />
+//     </Stack.Navigator>
+//   );
+// };
 
 const ReminderStack = () => {
   return (
@@ -90,7 +90,7 @@ function MyTabs() {
     >
       <Tab.Screen
         name='dwod'
-        component={DwodStack}
+        component={DanWod}
         options={{
           tabBarIcon:({focused}) => (
             <View
