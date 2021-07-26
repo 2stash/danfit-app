@@ -4,7 +4,13 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
+import MyAppText from "../components/MyAppText";
+import GreyBorder from "../components/GreyBorder";
+import SafeViewAndroid from "../components/SafeViewAndroid";
+
 import WorkoutsContext from "../context/workouts/workoutsContext";
 import constants from "../utils/constants";
 
@@ -25,281 +31,99 @@ const WorkoutDone = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={[SafeViewAndroid.AndroidSafeArea,styles.container]}>
+      
+    <ScrollView>
       <View
         style={{
           backgroundColor: constants.primary,
-          width: "100%",
-          borderRadius: 10,
         }}
       >
-        <View>
-          <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
-            {dayOfWeekName}'s Workout
+        <View style={{
+          width:"100%",
+          margin:10,
+          justifyContent:'center',
+          alignItems:'center',
+        }}>
+          <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>Workout Completed!
+            {/* {dayOfWeekName}'s Workout */}
           </Text>
-        </View>
-        {/* <View>
-          <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
-            Completed!!!
-          </Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 24, textAlign: "center", color: "white" }}>
-            Congratulations
-          </Text>
-        </View> */}
-      </View>
-
-      <View
-        style={{
-          backgroundColor: constants.grey,
-          width: "100%",
-          marginTop: 10,
-          flexDirection: "row",
-          height: 35,
-        }}
-      >
-        <View
-          style={{
-            width: "70%",
-            borderWidth: 1,
-            borderColor: constants.primary,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Exercise</Text>
-        </View>
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderTopWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 22 }}>Total</Text>
         </View>
       </View>
 
-      {/* pushups */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            width: "70%",
-            borderColor: "blue",
-            justifyContent: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Pushups</Text>
-        </View>
-
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>
+    {/* pushups */}
+      <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
+          <MyAppText style={styles.exerciseText}>Pushups</MyAppText>
+          <MyAppText style={styles.repsText}>
             {completedWorkout.sets * completedWorkout.workout[0].pushups}
-          </Text>
-        </View>
-      </View>
+          </MyAppText>
+      </GreyBorder>
 
       {/* situps */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            width: "70%",
-            borderColor: "blue",
-            justifyContent: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Situps</Text>
-        </View>
-
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>
+      <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}>
+          <MyAppText style={styles.exerciseText}>Situps</MyAppText>
+          <MyAppText style={styles.repsText}>
             {completedWorkout.sets * completedWorkout.workout[1].situps}
-          </Text>
-        </View>
-      </View>
+          </MyAppText>
+      </GreyBorder>
 
       {/* squats */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            width: "70%",
-            borderColor: "blue",
-            justifyContent: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Squats</Text>
-        </View>
+      <GreyBorder style={styles.totalView} accentColor={constants.mainDarkBlue}>
 
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>
+          <MyAppText style={styles.exerciseText}>Squats</MyAppText>
+
+          <MyAppText style={styles.repsText}>
             {completedWorkout.sets * completedWorkout.workout[2].squats}
-          </Text>
-        </View>
-      </View>
+          </MyAppText>
+      </GreyBorder>
 
       {/* burpees */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          flexDirection: "row",
-        }}
+      <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}
       >
-        <View
-          style={{
-            width: "70%",
-            borderColor: "blue",
-            justifyContent: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Burpees</Text>
-        </View>
-
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>
+          <MyAppText style={styles.exerciseText}>Burpees</MyAppText>
+          <MyAppText style={styles.repsText}>
             {completedWorkout.sets * completedWorkout.workout[3].burpees}
-          </Text>
-        </View>
-      </View>
+          </MyAppText>
+      </GreyBorder>
 
       {/* pullups */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          flexDirection: "row",
-        }}
+      <GreyBorder style={styles.totalView} accentColor={constants.mainOrange}
       >
-        <View
-          style={{
-            width: "70%",
-            borderColor: "blue",
-            justifyContent: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>Pullups</Text>
-        </View>
+           <MyAppText style={styles.exerciseText}>Pullups</MyAppText>
 
-        <View
-          style={{
-            width: "30%",
-            borderColor: "blue",
-            borderRightWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>
+          <MyAppText style={styles.repsText}>
             {completedWorkout.sets * completedWorkout.workout[4].pullups}
-          </Text>
-        </View>
-      </View>
+          </MyAppText>
+      </GreyBorder>
 
       <TouchableOpacity
         onPress={backToCreateWorkout}
         style={styles.completeSetDone}
       >
-        <Text style={{ color: "white", textAlign: "center", fontSize: 24 }}>
+        <Text style={{ color: "white", textAlign: "center", fontSize: 28 }}>
           Create Another Workout
         </Text>
       </TouchableOpacity>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: 10,
-    shadowColor: "blue",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    elevation: 3,
-    padding: 15,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: constants.backgroundColor,
+    backgroundColor: constants.mainDarkBG,
   },
   completeSetDone: {
     width: "100%",
     backgroundColor: constants.green,
-    height: 40,
-    marginTop: 10,
+    height: 60,
+    marginTop: 20,
     justifyContent: "center",
   },
+  exerciseText: { textAlign: "center", fontSize: 28 },
+  repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },
+  totalView: { flexDirection: "row", justifyContent: "center" },
 });
 
 export default WorkoutDone;

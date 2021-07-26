@@ -399,9 +399,9 @@ const DanWod = () => {
 
             {/* End of Exercises */}
 
-            <View style={{ marginTop: 10, marginBottom:25 }}>
-              <Button title='Start Workout' onPress={startWorkout} />
-            </View>
+            <TouchableOpacity onPress={startWorkout} style={styles.completeSetDone}>
+              <Text style={{ color: "white", textAlign: "center", fontSize: 32 }}>Start Workout</Text>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       )}
@@ -473,6 +473,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+  },
+  completeSetDone: {
+    width: "100%",
+    backgroundColor: constants.green,
+    height: 60,
+    marginTop: 20,
+    justifyContent: "center",
   },
 });
 

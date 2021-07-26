@@ -9,7 +9,7 @@ const GreyBorder = (props) => {
       style={[
         props.style,
         {
-          backgroundColor: props.setDone ? constants.green : constants.mainGrey,
+          backgroundColor:props.setDone ? constants.green : constants.mainGrey,
           height: 70,
           justifyContent: "flex-start",
           alignItems: "center",
@@ -23,7 +23,7 @@ const GreyBorder = (props) => {
           { backgroundColor: props.accentColor },
           {
             height: "100%",
-            width: 15,
+            width: 7,
             borderBottomLeftRadius: 10,
             borderTopLeftRadius: 10,
           },
