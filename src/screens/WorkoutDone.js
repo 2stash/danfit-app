@@ -33,11 +33,13 @@ const WorkoutDone = () => {
   return (
     <SafeAreaView style={[SafeViewAndroid.AndroidSafeArea,styles.container]}>
       
-    <ScrollView>
+    <ScrollView style={{width:"100%"}} contentContainerStyle={{alignItems:"center"}}>
+      <View style={{width:"100%"}}>
       <View
         style={{
-          backgroundColor: constants.primary,
-          marginBottom:10
+          backgroundColor: constants.mainDarkBlue,
+          marginBottom:10,
+          width:"100%",
         }}
       >
         <View style={{
@@ -96,7 +98,7 @@ const WorkoutDone = () => {
             {completedWorkout.sets * completedWorkout.workout[4].pullups}
           </MyAppText>
       </GreyBorder>
-
+      <View style={{justifyContent:'center',alignItems:'center'}}>
       <TouchableOpacity
         onPress={backToCreateWorkout}
         style={styles.completeSetDone}
@@ -105,6 +107,8 @@ const WorkoutDone = () => {
           Create Another Workout
         </Text>
       </TouchableOpacity>
+      </View>
+      </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -114,13 +118,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: constants.mainDarkBG,
+    width:"100%"
   },
   completeSetDone: {
-    width: "100%",
+    width: 200,
     backgroundColor: constants.mainLightBlue,
-    height: 60,
-    marginTop: 20,
+    height: 70,
+    marginTop: 10,
     justifyContent: "center",
+    borderRadius:10
   },
   exerciseText: { textAlign: "center", fontSize: 28 },
   repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },

@@ -465,6 +465,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    marginTop:10
     // shadowColor: "blue",
     // shadowOpacity: 0.26,
     // shadowOffset: { width: 0, height: 2 },

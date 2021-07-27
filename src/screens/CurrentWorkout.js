@@ -10,6 +10,8 @@ import {
 
 import WorkoutsContext from "../context/workouts/workoutsContext";
 
+import { Ionicons } from "@expo/vector-icons";
+
 import SafeViewAndroid from "../components/SafeViewAndroid";
 import { dayOfTheWeek } from "../utils/dayOfTheWeek";
 import constants from "../utils/constants";
@@ -26,11 +28,12 @@ const Set = (props) => {
         style={styles.set}
         onPress={props.setSetDone.bind(this, props.name)}
       >
-        <GreyBorder style={[styles.totalView]} accentColor={props.accentColor} setDone={props.setDone}>
+        <GreyBorder style={[styles.totalView]} accentColor={props.accentColor} setDone={false}>
           <MyAppText style={styles.exerciseText}>{exerciseName}:</MyAppText>
           <MyAppText style={styles.repsText}>
             {props.data[props.name]}
           </MyAppText>
+          <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end',alignItems:'center', marginRight:20}}><Ionicons name={props.setDone ? "checkbox": "checkbox-outline"} size={36} color={props.setDone ? props.accentColor : constants.mainLightGrey }/></View>
         </GreyBorder>
       </TouchableOpacity>
     </View>
