@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 
-
 import WorkoutsContext from "../context/workouts/workoutsContext";
 
 import CurrentWorkout from "./CurrentWorkout";
@@ -19,9 +18,11 @@ import UnfinishedWorkout from "./UnfinishedWorkout";
 
 import { dayOfTheWeek } from "../utils/dayOfTheWeek";
 import constants from "../utils/constants";
+import MyAppText from "../components/MyAppText";
+import GreyBorder from "../components/GreyBorder";
+import LargeGreyBorder from "../components/LargeGreyBorder";
 
 const DanWod = () => {
-  
   const workoutContext = useContext(WorkoutsContext);
 
   const {
@@ -155,252 +156,298 @@ const DanWod = () => {
         <CurrentWorkout />
       ) : (
         <View style={styles.container}>
-          <Text style={styles.title}> Create {dayOfWeekName}'s' Workout</Text>
+          <MyAppText> Create Workout</MyAppText>
 
           {/* Start of exercise builder */}
-          <ScrollView >
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Select how many Sets</Text>
+          <ScrollView>
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Select how many Sets
+                </Text>
               </View>
-              <View style={{ flexDirection: "row" }} key={"sets"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>SETS TODAY {sets}</Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
-                  <TouchableOpacity style={styles.plus} onPress={increaseSets}>
+              <View key={"sets"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainLightBlue}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
+                  <TouchableOpacity style={[styles.minus,{borderColor:constants.mainLightBlue}]} onPress={decreaseSets}>
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
+                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>-</Text>
                     </View>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={styles.minus} onPress={decreaseSets}>
+                  <View>
+                    <MyAppText>{sets}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity style={[styles.plus,{borderColor:constants.mainLightBlue}]} onPress={increaseSets}>
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>+</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
             {/* PUSHUPS START---------------------- */}
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Pushups</Text>
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Pushups Per Set
+                </Text>
               </View>
-              <View style={{ flexDirection: "row" }} key={"pushups"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      reps per set: {pushups}
-                    </Text>
-                  </View>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      TOTAL REPS: {sets * pushups}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
+              <View key={"pushups"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainLightBlue}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
                   <TouchableOpacity
-                    style={styles.plus}
-                    onPress={increaseReps.bind(this, "pushups")}
-                  >
-                    <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.minus}
+                    style={[styles.minus,{borderColor:constants.mainLightBlue}]} 
                     onPress={decreaseReps.bind(this, "pushups")}
                   >
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText, {color:constants.mainLightBlue}]}>-</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+
+                  <View>
+                    <MyAppText>{pushups}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[styles.plus,{borderColor:constants.mainLightBlue}]}
+                    onPress={increaseReps.bind(this, "pushups")}
+                  >
+                    <View style={styles.buttonView}>
+                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
             {/* SITUPS START---------------------- */}
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Situps</Text>
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Situps Per Set
+                </Text>
               </View>
-              <View style={{ flexDirection: "row" }} key={"situps"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      reps per set: {situps}
-                    </Text>
-                  </View>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      TOTAL REPS: {sets * situps}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
+              <View key={"situps"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainOrange}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
                   <TouchableOpacity
-                    style={styles.plus}
-                    onPress={increaseReps.bind(this, "situps")}
-                  >
-                    <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.minus}
+                    style={[styles.minus,{borderColor:constants.mainOrange}]} 
                     onPress={decreaseReps.bind(this, "situps")}
                   >
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText, {color:constants.mainOrange}]}>-</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+
+                  <View>
+                    <MyAppText>{situps}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[styles.plus,{borderColor:constants.mainOrange}]}
+                    onPress={increaseReps.bind(this, "situps")}
+                  >
+                    <View style={styles.buttonView}>
+                      <Text style={[styles.buttonText,{color:constants.mainOrange}]}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
-            {/* SQUATS START---------------------- */}
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Squats</Text>
-              </View>
-              <View style={{ flexDirection: "row" }} key={"squats"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      reps per set: {squats}
-                    </Text>
-                  </View>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      TOTAL REPS: {sets * squats}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
-                  <TouchableOpacity
-                    style={styles.plus}
-                    onPress={increaseReps.bind(this, "squats")}
-                  >
-                    <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
-                    </View>
-                  </TouchableOpacity>
 
+
+            {/* SQUATS START---------------------- */}
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Squats Per Set
+                </Text>
+              </View>
+              <View key={"squats"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainDarkBlue}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
                   <TouchableOpacity
-                    style={styles.minus}
+                    style={[styles.minus,{borderColor:constants.mainDarkBlue}]} 
                     onPress={decreaseReps.bind(this, "squats")}
                   >
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText, {color:constants.mainDarkBlue}]}>-</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+
+                  <View>
+                    <MyAppText>{squats}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[styles.plus,{borderColor:constants.mainDarkBlue}]}
+                    onPress={increaseReps.bind(this, "squats")}
+                  >
+                    <View style={styles.buttonView}>
+                      <Text style={[styles.buttonText,{color:constants.mainDarkBlue}]}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
             {/* Burpees START---------------------- */}
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Burpees</Text>
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Burpees Per Set
+                </Text>
               </View>
-              <View style={{ flexDirection: "row" }} key={"burpees"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      reps per set: {burpees}
-                    </Text>
-                  </View>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      TOTAL REPS: {sets * burpees}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
+              <View key={"burpees"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainLightBlue}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
                   <TouchableOpacity
-                    style={styles.plus}
-                    onPress={increaseReps.bind(this, "burpees")}
-                  >
-                    <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.minus}
+                    style={[styles.minus,{borderColor:constants.mainLightBlue}]} 
                     onPress={decreaseReps.bind(this, "burpees")}
                   >
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText, {color:constants.mainLightBlue}]}>-</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+
+                  <View>
+                    <MyAppText>{burpees}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[styles.plus,{borderColor:constants.mainLightBlue}]}
+                    onPress={increaseReps.bind(this, "burpees")}
+                  >
+                    <View style={styles.buttonView}>
+                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
             {/* Pullups START---------------------- */}
-            <View
-              style={{ width: "100%", borderRadius: 10, overflow: "hidden" }}
-            >
-              <View style={styles.mainTitle}>
-                <Text style={styles.text}>Pullups</Text>
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  height: 30,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
+                >
+                  Burpees Per Set
+                </Text>
               </View>
-              <View style={{ flexDirection: "row" }} key={"pullups"}>
-                <View style={styles.subCard}>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      reps per set: {pullups}
-                    </Text>
-                  </View>
-                  <View style={styles.fifty}>
-                    <Text style={styles.textPrimary}>
-                      TOTAL REPS: {sets * pullups}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardButtons}>
+              <View key={"pullups"}>
+                <GreyBorder
+                  style={styles.totalView}
+                  accentColor={constants.mainOrange}
+                >
+                  <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
                   <TouchableOpacity
-                    style={styles.plus}
-                    onPress={increaseReps.bind(this, "pullups")}
-                  >
-                    <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>+</Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.minus}
+                    style={[styles.minus,{borderColor:constants.mainOrange}]} 
                     onPress={decreaseReps.bind(this, "pullups")}
                   >
                     <View style={styles.buttonView}>
-                      <Text style={styles.buttonText}>-</Text>
+                      <Text style={[styles.buttonText, {color:constants.mainOrange}]}>-</Text>
                     </View>
                   </TouchableOpacity>
-                </View>
+
+                  <View>
+                    <MyAppText>{pullups}</MyAppText>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[styles.plus,{borderColor:constants.mainOrange}]}
+                    onPress={increaseReps.bind(this, "pullups")}
+                  >
+                    <View style={styles.buttonView}>
+                      <Text style={[styles.buttonText,{color:constants.mainOrange}]}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </View>
+                </GreyBorder>
               </View>
             </View>
 
             {/* End of Exercises */}
 
-            <TouchableOpacity onPress={startWorkout} style={styles.completeSetDone}>
-              <Text style={{ color: "white", textAlign: "center", fontSize: 32 }}>Start Workout</Text>
+            <TouchableOpacity
+              onPress={startWorkout}
+              style={styles.completeSetDone}
+            >
+              <Text
+                style={{ color: "white", textAlign: "center", fontSize: 32 }}
+              >
+                Start Workout
+              </Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -414,35 +461,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: constants.background,
+    backgroundColor: constants.mainDarkBG,
   },
   container: {
-    flex: 1,
-    shadowColor: "blue",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    elevation: 3,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: constants.background,
+    // flex: 1,
+    // shadowColor: "blue",
+    // shadowOpacity: 0.26,
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 10,
+    // elevation: 3,
+    // justifyContent: "flex-start",
+    // alignItems: "center",
+    // width: "100%",
   },
-  mainTitle: {
-    marginTop: 10,
-    height: 30,
-    backgroundColor: constants.darkblue,
-    textAlign: "center",
-    color: "white",
-    justifyContent: "center",
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 18,
-    color: "white",
-  },
+  mainTitle: {},
+  text: {},
   textPrimary: {
     textAlign: "center",
     fontSize: 18,
@@ -457,30 +490,32 @@ const styles = StyleSheet.create({
     width: "80%",
     backgroundColor: constants.grey,
   },
-  cardButtons: {
-    flex: 1,
-  },
+  cardButtons: {},
   buttonView: { height: 40 },
   plus: {
-    backgroundColor: "green",
+    borderWidth: 3,
+    borderRadius: 4,
+    width: 80,
   },
   minus: {
-    backgroundColor: "red",
+    borderWidth: 3,
+    borderRadius: 4,
+    width: 80,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 32,
     textAlign: "center",
-  },
-  title: {
-    fontSize: 25,
   },
   completeSetDone: {
     width: "100%",
-    backgroundColor: constants.green,
+    backgroundColor: constants.mainLightBlue,
     height: 60,
     marginTop: 20,
     justifyContent: "center",
   },
+  exerciseText: { textAlign: "center", fontSize: 28 },
+  repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },
+  totalView: { flexDirection: "row"},
 });
 
 export default DanWod;

@@ -37,6 +37,7 @@ const WorkoutDone = () => {
       <View
         style={{
           backgroundColor: constants.primary,
+          marginBottom:10
         }}
       >
         <View style={{
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   completeSetDone: {
     width: "100%",
-    backgroundColor: constants.green,
+    backgroundColor: constants.mainLightBlue,
     height: 60,
     marginTop: 20,
     justifyContent: "center",

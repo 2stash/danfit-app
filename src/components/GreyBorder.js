@@ -13,7 +13,9 @@ const GreyBorder = (props) => {
           height: 70,
           justifyContent: "flex-start",
           alignItems: "center",
-          margin: 10,
+          marginLeft: 10,
+          marginRight:10,
+          marginBottom:10,
           borderRadius: 10,
         },
       ]}
@@ -29,7 +31,7 @@ const GreyBorder = (props) => {
           },
         ]}
       ></View>
-      <View style={{ flexDirection: "row", marginLeft: 8 }}>
+      <View style={[{marginLeft: 8 }, (props.column == true ? {flexDirection:'column'}: {flexDirection:'row'})]}>
         {props.children}
       </View>
     </View>

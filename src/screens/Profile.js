@@ -64,7 +64,7 @@ const Profile = () => {
     }
 
     return (
-      <SafeAreaView style={{ marginTop: 15 }}>
+      <SafeAreaView style={{ marginTop: 10 }}>
       <ScrollView >
         <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
           <MyAppText style={styles.exerciseText}>Pushups:</MyAppText>
@@ -135,7 +135,7 @@ const Profile = () => {
     }
 
     return (
-      <ScrollView style={{ marginTop: 15 }}>
+      <ScrollView style={{ marginTop: 10 }}>
         <GreyBorder style={styles.totalView} accentColor={constants.mainLightBlue}>
           <MyAppText style={styles.exerciseText}>Pushups:</MyAppText>
           <MyAppText style={styles.repsText}>{totalPushups}</MyAppText>
@@ -186,7 +186,7 @@ const Profile = () => {
           style={[
             styles.buttons,
             toggle == true
-              ? { backgroundColor: constants.green }
+              ? { backgroundColor: constants.mainLightBlue }
               : { backgroundColor: constants.grey },
           ]}
         >
@@ -200,7 +200,7 @@ const Profile = () => {
             styles.buttons,
             toggle == true
               ? { backgroundColor: constants.grey }
-              : { backgroundColor: constants.green },
+              : { backgroundColor: constants.mainLightBlue },
           ]}
         >
           <Text style={styles.buttonText}>LifeTime</Text>
