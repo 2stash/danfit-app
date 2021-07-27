@@ -155,10 +155,10 @@ const DanWod = () => {
         <CurrentWorkout />
       ) : (
         <View style={styles.container}>
-          <MyAppText> Create Workout</MyAppText>
+          <MyAppText style={{textAlign:'center'}}> Create Workout</MyAppText>
 
           {/* Start of exercise builder */}
-          <ScrollView>
+          <ScrollView contentContainerStyle={{alignItems:"center"}}>
             <View style={{ width: "100%" }}>
               <View
                 style={{
@@ -401,7 +401,7 @@ const DanWod = () => {
                 <Text
                   style={{ textAlign: "left", fontSize: 22, color: "white", marginLeft:10 }}
                 >
-                  Burpees Per Set
+                  Pullups Per Set
                 </Text>
               </View>
               <View key={"pullups"}>
@@ -460,36 +460,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    // alignContent:"center",
     backgroundColor: constants.mainDarkBG,
   },
   container: {
-    // flex: 1,
+    flex: 1,
     // shadowColor: "blue",
     // shadowOpacity: 0.26,
     // shadowOffset: { width: 0, height: 2 },
     // shadowRadius: 10,
     // elevation: 3,
-    // justifyContent: "flex-start",
+
+    // justifyContent: "center",
     // alignItems: "center",
+    // alignContent:"center"
     // width: "100%",
   },
-  mainTitle: {},
-  text: {},
-  textPrimary: {
-    textAlign: "center",
-    fontSize: 18,
-    color: constants.primary,
-  },
-  fifty: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
-  subCard: {
-    width: "80%",
-    backgroundColor: constants.grey,
-  },
-  cardButtons: {},
   buttonView: { height: 40 },
   plus: {
     borderWidth: 3,
@@ -506,11 +492,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   completeSetDone: {
-    width: "100%",
+    width: 200,
     backgroundColor: constants.mainLightBlue,
-    height: 60,
+    height: 70,
     marginTop: 20,
     justifyContent: "center",
+    borderRadius:10
   },
   exerciseText: { textAlign: "center", fontSize: 28 },
   repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },

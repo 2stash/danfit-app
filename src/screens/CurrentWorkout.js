@@ -21,7 +21,7 @@ const Set = (props) => {
   exerciseName = exerciseName[0].toUpperCase() + exerciseName.substring(1);
 
   return (
-    <View style={[props.zeroReps == true && styles.hidden]}>
+    <View style={{width:"100%",flex:1},[props.zeroReps == true && styles.hidden]}>
       <TouchableOpacity
         style={styles.set}
         onPress={props.setSetDone.bind(this, props.name)}
@@ -111,7 +111,8 @@ const CurrentWorkout = () => {
         </MyAppText>
       </View>
 
-      <ScrollView style={{ width: "100%" }}>
+      <ScrollView style={{width:"100%"}} contentContainerStyle={{alignItems:"center"}}>
+        <View style={{width:"100%",justifyContent:'center'}}>
         {/* Pushup set */}
         {currentWorkout.workout[0].pushups != 0 ? (
           <Set
@@ -232,7 +233,7 @@ const CurrentWorkout = () => {
             zeroReps={true}
           />
         )}
-
+        <View style={{justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity
           style={[
             pushupsDone &&
@@ -249,6 +250,8 @@ const CurrentWorkout = () => {
             Complete Set
           </Text>
         </TouchableOpacity>
+        </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -257,7 +260,7 @@ const CurrentWorkout = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    flex: 1,
+    // flex: 1,
     width: "100%",
   },
   set: {
@@ -273,18 +276,20 @@ const styles = StyleSheet.create({
     backgroundColor: constants.green,
   },
   completeSet: {
-    width: "100%",
+    width: 200,
     backgroundColor: constants.grey,
-    height: 60,
+    height: 70,
     marginTop: 20,
     justifyContent: "center",
+    borderRadius:10
   },
   completeSetDone: {
-    width: "100%",
-    backgroundColor: constants.green,
-    height: 60,
+    width: 200,
+    backgroundColor: constants.mainLightBlue,
+    height: 70,
     marginTop: 20,
     justifyContent: "center",
+    borderRadius:10
   },
   hidden: {
     display: "none",
