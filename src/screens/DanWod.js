@@ -20,7 +20,6 @@ import { dayOfTheWeek } from "../utils/dayOfTheWeek";
 import constants from "../utils/constants";
 import MyAppText from "../components/MyAppText";
 import GreyBorder from "../components/GreyBorder";
-import LargeGreyBorder from "../components/LargeGreyBorder";
 
 const DanWod = () => {
   const workoutContext = useContext(WorkoutsContext);
