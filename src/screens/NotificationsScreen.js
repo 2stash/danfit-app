@@ -275,7 +275,7 @@ async function schedulePushNotification(today) {
   return await Notifications.scheduleNotificationAsync({
     content: {
       title: "DanFit",
-      body: "Time to workout!" + today,
+      body: "Time to for your " + (today.getHours()) + ":" + (today.getMinutes()) + " workout!",
       // data: { data: "goes here" },
     },
     trigger: {hour: today.getHours(), minute: today.getMinutes(), repeats:true, }

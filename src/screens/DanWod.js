@@ -176,12 +176,12 @@ const DanWod = () => {
               <View key={"sets"}>
                 <GreyBorder
                   style={styles.totalView}
-                  accentColor={constants.mainLightBlue}
+                  accentColor={constants.mainDarkBlue}
                 >
                   <View style={{flex:1, flexDirection:'row',justifyContent:'space-evenly'}}>
-                  <TouchableOpacity style={[styles.minus,{borderColor:constants.mainLightBlue}]} onPress={decreaseSets}>
+                  <TouchableOpacity style={[styles.minus,{borderColor:constants.mainDarkBlue}]} onPress={decreaseSets}>
                     <View style={styles.buttonView}>
-                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>-</Text>
+                      <Text style={[styles.buttonText,{color:constants.mainDarkBlue}]}>-</Text>
                     </View>
                   </TouchableOpacity>
 
@@ -189,9 +189,9 @@ const DanWod = () => {
                     <MyAppText>{sets}</MyAppText>
                   </View>
 
-                  <TouchableOpacity style={[styles.plus,{borderColor:constants.mainLightBlue}]} onPress={increaseSets}>
+                  <TouchableOpacity style={[styles.plus,{borderColor:constants.mainDarkBlue}]} onPress={increaseSets}>
                     <View style={styles.buttonView}>
-                      <Text style={[styles.buttonText,{color:constants.mainLightBlue}]}>+</Text>
+                      <Text style={[styles.buttonText,{color:constants.mainDarkBlue}]}>+</Text>
                     </View>
                   </TouchableOpacity>
                   </View>
