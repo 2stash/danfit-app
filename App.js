@@ -38,17 +38,17 @@ const Stack = createStackNavigator();
 //   );
 // };
 
-const ReminderStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name='Notifications'
-        component={NotificationsScreen}
-        options={{ title: "Reminders", headerTitleAlign: "center" }}
-      />
-    </Stack.Navigator>
-  );
-};
+// const ReminderStack = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen
+//         name='Notifications'
+//         component={NotificationsScreen}
+//         options={{ title: "Reminders", headerTitleAlign: "center" }}
+//       />
+//     </Stack.Navigator>
+//   );
+// };
 
 function MyTabs() {
   const workoutContext = useContext(WorkoutsContext);
@@ -114,7 +114,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name='Notifications'
-        component={ReminderStack}
+        component={NotificationsScreen}
         options={{
           tabBarIcon:({focused}) => (
             <View

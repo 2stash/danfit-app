@@ -104,7 +104,7 @@ const CurrentWorkout = () => {
       style={[
         styles.container,
         SafeViewAndroid.AndroidSafeArea,
-        { flex: 1, backgroundColor: constants.mainDarkBG },
+        { flex: 1, backgroundColor: constants.mainDarkBG,margin:10 },
       ]}
     >
       <MyAppText style={{ fontSize: 24 }}>{dayOfWeekName} Workout</MyAppText>

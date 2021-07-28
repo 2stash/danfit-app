@@ -7,7 +7,8 @@ import {
   Button,
   Switch,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  StyleSheet,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -16,10 +17,12 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import NotificationsContext from "../context/notifications/notificationsContext";
 
+import MyAppText from "../components/MyAppText";
+import GreyBorder from "../components/GreyBorder";
+import SafeViewAndroid from "../components/SafeViewAndroid";
 import constants from "../utils/constants";
 import { timeFormater } from "../utils/timeFormater";
-import {sortNotificationsByDate} from "../utils/sortNotificationsByDate"
-import MyAppText from "../components/MyAppText";
+import { sortNotificationsByDate } from "../utils/sortNotificationsByDate";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,25 +38,39 @@ const NotificationsScreen = ({ navigation }) => {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  const [deleteButton, setDeleteButton] = useState(false)
+  const [deleteButton, setDeleteButton] = useState(false);
 
   const notificationContext = useContext(NotificationsContext);
 
   const HeaderButton = () => {
-    if(deleteButton == true){
-       return (<TouchableOpacity style={{marginLeft:25}} onPress={editNotificationsHandler}><Text style={{fontSize:20,color:constants.darkblue}}>Done</Text></TouchableOpacity>)
+    if (deleteButton == true) {
+      return (
+        <TouchableOpacity
+          style={[styles.buttons, { backgroundColor: constants.mainOrange }]}
+          onPress={editNotificationsHandler}
+        >
+          <Text style={styles.buttonText}>Done</Text>
+        </TouchableOpacity>
+      );
     } else {
-      return (<TouchableOpacity style={{marginLeft:25}} onPress={editNotificationsHandler}><Text style={{fontSize:20,color:constants.darkblue}}>Edit</Text></TouchableOpacity>)
+      return (
+        <TouchableOpacity
+          style={[styles.buttons, { backgroundColor: constants.mainOrange }]}
+          onPress={editNotificationsHandler}
+        >
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+      );
     }
-
-  }
+  };
 
   const {
     loading,
     notifications,
     saveNotificationsToStorage,
     deleteNotificationsFromStorage,
-    setNotifications
+    setNotifications,
+    setPastNotificationsToOff
   } = notificationContext;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -67,7 +84,7 @@ const NotificationsScreen = ({ navigation }) => {
 
   const handleConfirm = async (date) => {
     let now = Date.now();
-    if(date < now){
+    if (date < now) {
       date.setDate(date.getDate() + 1);
       const identifier = await schedulePushNotification(date);
       let tempArray = notifications;
@@ -75,117 +92,128 @@ const NotificationsScreen = ({ navigation }) => {
         hour: date.getHours(),
         minute: date.getMinutes(),
         on: true,
-        identifier: identifier
+        identifier: identifier,
+        date:date
       });
-      sortNotificationsByDate(tempArray)
-      setNotifications(tempArray)
+      sortNotificationsByDate(tempArray);
+      setNotifications(tempArray);
       saveNotificationsToStorage(tempArray);
-    }
-    else {
+    } else {
       try {
         const identifier = await schedulePushNotification(date);
-  
+
         let tempArray = notifications;
         tempArray.push({
           hour: date.getHours(),
           minute: date.getMinutes(),
           on: true,
           identifier: identifier,
+          date: now
         });
-        sortNotificationsByDate(tempArray)
-        setNotifications(tempArray)
+        sortNotificationsByDate(tempArray);
+        setNotifications(tempArray);
         saveNotificationsToStorage(tempArray);
       } catch (error) {
         console.log(error);
       }
     }
-    
+
     hideDatePicker();
   };
 
   const cancelNotificationHandler = async (notification) => {
-    await Notifications.cancelScheduledNotificationAsync(notification.identifier);
+    await Notifications.cancelScheduledNotificationAsync(
+      notification.identifier
+    );
     let tempArray = notifications;
     tempArray.map((item) => {
-      if(item.identifier == notification.identifier){
-        item.on = false
+      if (item.identifier == notification.identifier) {
+        item.on = false;
       }
-    })
-    setNotifications(tempArray)
-    saveNotificationsToStorage(tempArray)
+    });
+    setNotifications(tempArray);
+    saveNotificationsToStorage(tempArray);
   };
 
   const switchToggleHandler = async (notification) => {
-    if(notification.on == true){
-      cancelNotificationHandler(notification)
-    } else{
-      setNotificationHandler(notification)
-    } 
+    if (notification.on == true) {
+      cancelNotificationHandler(notification);
+    } else {
+      setNotificationHandler(notification);
+    }
   };
 
-  const setNotificationHandler = async(notification) => {
+  const setNotificationHandler = async (notification) => {
     let today = new Date();
-    if(today.getHours() > notification.hour || (today.getHours() == notification.hour && today.getMinutes() >= notification.minute)){
-      today.setHours(notification.hour, notification.minute)
+    if (
+      today.getHours() > notification.hour ||
+      (today.getHours() == notification.hour &&
+        today.getMinutes() >= notification.minute)
+    ) {
+      today.setHours(notification.hour, notification.minute);
       today.setDate(today.getDate() + 1);
       const identifier = await schedulePushNotification(today);
       let tempArray = notifications;
-  
-        tempArray.map((item)=> {
-          if(item.identifier == notification.identifier){
-            item.identifier = identifier
-            item.on = true
-          }
-        })
-      setNotifications(tempArray)
+
+      tempArray.map((item) => {
+        if (item.identifier == notification.identifier) {
+          item.identifier = identifier;
+          item.on = true;
+          item.date=today
+        }
+      });
+      setNotifications(tempArray);
       saveNotificationsToStorage(tempArray);
     } else {
-      today.setHours(notification.hour, notification.minute)
-  
+      today.setHours(notification.hour, notification.minute);
+
       try {
         const identifier = await schedulePushNotification(today);
-  
+
         let tempArray = notifications;
-  
-        tempArray.map((item)=> {
-          if(item.identifier == notification.identifier){
-            item.identifier = identifier
-            item.on = true
+
+        tempArray.map((item) => {
+          if (item.identifier == notification.identifier) {
+            item.identifier = identifier;
+            item.on = true;
+            date=today
           }
-        })
-        setNotifications(tempArray)
+        });
+        setNotifications(tempArray);
         saveNotificationsToStorage(tempArray);
       } catch (error) {
         console.log(error);
       }
-    }   
-  }
+    }
+  };
 
   const clearRemindersHandler = () => {
     deleteNotificationsFromStorage();
   };
 
   const editNotificationsHandler = () => {
-    setDeleteButton((status)=> !status)
-
-  }
+    setDeleteButton((status) => !status);
+  };
 
   const deleteSelectedNotificationFromStorage = (notification) => {
     let tempArray = notifications;
-    let filteredTempArray = tempArray.filter((item)=> item.identifier != notification.identifier )
-    
-    saveNotificationsToStorage(filteredTempArray);
-    setNotifications(filteredTempArray)
+    let filteredTempArray = tempArray.filter(
+      (item) => item.identifier != notification.identifier
+    );
 
-    if(notification.on == true){
+    saveNotificationsToStorage(filteredTempArray);
+    setNotifications(filteredTempArray);
+
+    if (notification.on == true) {
       unschedulerReminder(notification);
     }
-  }
+  };
 
-  const unschedulerReminder = async (notification) =>{
-    await Notifications.cancelScheduledNotificationAsync(notification.identifier);
-  }
-
+  const unschedulerReminder = async (notification) => {
+    await Notifications.cancelScheduledNotificationAsync(
+      notification.identifier
+    );
+  };
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -198,8 +226,7 @@ const NotificationsScreen = ({ navigation }) => {
       });
 
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -210,51 +237,107 @@ const NotificationsScreen = ({ navigation }) => {
   }, []);
 
   useEffect(()=> {
-    navigation.setOptions({
-    headerLeft: () => (
-      <HeaderButton/>
-    )
-    })
-  },[deleteButton])
+    setPastNotificationsToOff()
+  },[])
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Ionicons
-          name={"add-outline"}
-          color={constants.green}
-          size={32}
-          onPress={showDatePicker}
-          style={{marginRight:20}}
-        />
-      ),
-  });
-  }, [navigation]);
+  // useEffect(()=> {
+  //   navigation.setOptions({
+  //   headerLeft: () => (
+  //     <HeaderButton/>
+  //   )
+  //   })
+  // },[deleteButton])
+
+  // React.useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <Ionicons
+  //         name={"add-outline"}
+  //         color={constants.green}
+  //         size={32}
+  //         onPress={showDatePicker}
+  //         style={{marginRight:20}}
+  //       />
+  //     ),
+  // });
+  // }, [navigation]);
 
   return (
-    <View style={{flex:1}}>
+    <SafeAreaView style={[SafeViewAndroid.AndroidSafeArea, { flex: 1, backgroundColor: constants.mainDarkBG} ]}>
       {loading ? (
         <View>
-          <Text style={{justifyContent:"center",textAlign:"center",alignItems:"center", fontSize:22}}>No notifications</Text>
+          <Text
+            style={{
+              justifyContent: "center",
+              textAlign: "center",
+              alignItems: "center",
+              fontSize: 22,
+            }}
+          >
+            No notifications
+          </Text>
         </View>
       ) : (
-        <SafeAreaView style={{flex:1}}>
-        <ScrollView style={{backgroundColor: constants.mainDarkBG}}>
-        {notifications.map((notification, idx) => (
-          <View key={notification.identifier} style={{height:75,width:"100%", backgroundColor:constants.mainGrey,borderBottomWidth:1, flexDirection:'row', alignItems:'center'}}>
-            <View style={{width:'80%'}}>
-            <MyAppText style={{fontSize:28, marginLeft:20}}>
-            {timeFormater(notification.hour,notification.minute)}
-            </MyAppText>
-            </View>
-            {deleteButton ? (<Button title="Delete" onPress={deleteSelectedNotificationFromStorage.bind(this,notification)}/>) : (<Switch onValueChange={switchToggleHandler.bind(this, notification)} value={notification.on}/>)
+        <View style={{ flex: 1,justifyContent:'center',alignItems:'center',marginTop:10 }}>
+          <MyAppText>Reminders</MyAppText>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <HeaderButton />
 
-            }
-            
+            <TouchableOpacity
+              style={[
+                { backgroundColor: constants.mainLightBlue },
+                styles.buttons,
+              ]}
+              onPress={showDatePicker}
+            >
+              <Text style={styles.buttonText}>
+               Add
+              </Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        </ScrollView>
-        </SafeAreaView>
+
+          <ScrollView style={{ backgroundColor: constants.mainDarkBG }}>
+            {notifications.map((notification, idx) => (
+              <View
+                key={notification.identifier}
+                style={{
+                  height: 75,
+                  width: "100%",
+                  backgroundColor: constants.mainGrey,
+                  borderBottomWidth: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ width: "80%" }}>
+                  <MyAppText style={{ fontSize: 28, marginLeft: 20 }}>
+                    {timeFormater(notification.hour, notification.minute)}
+                  </MyAppText>
+                </View>
+                {deleteButton ? (
+                  <Button
+                    title='Delete'
+                    onPress={deleteSelectedNotificationFromStorage.bind(
+                      this,
+                      notification
+                    )}
+                  />
+                ) : (
+                  <Switch
+                    onValueChange={switchToggleHandler.bind(this, notification)}
+                    value={notification.on}
+                  />
+                )}
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       )}
 
       <View>
@@ -263,11 +346,10 @@ const NotificationsScreen = ({ navigation }) => {
           mode='time'
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          style={{backgroundColor: constants.grey}}
+          style={{ backgroundColor: constants.grey }}
         />
       </View>
-
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -275,11 +357,19 @@ async function schedulePushNotification(today) {
   return await Notifications.scheduleNotificationAsync({
     content: {
       title: "DanFit",
-      body: "Time to for your " + (today.getHours()) + ":" + (today.getMinutes()) + " workout!",
+      body:
+        "Time to for your " +
+        today.getHours() +
+        ":" +
+        today.getMinutes() +
+        " workout!",
       // data: { data: "goes here" },
     },
-    trigger: {hour: today.getHours(), minute: today.getMinutes(), repeats:true, }
-  
+    trigger: {
+      hour: today.getHours(),
+      minute: today.getMinutes(),
+      repeats: true,
+    },
   });
 }
 
@@ -313,5 +403,21 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+const styles = StyleSheet.create({
+  buttons: {
+    width: 125,
+    height: 60,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    borderRadius: 10,
+  },
+  buttonText: { color: "white", textAlign: "center", fontSize: 18 },
+  exerciseText: { textAlign: "center", fontSize: 28 },
+  repsText: { textAlign: "center", fontSize: 28, marginLeft: 20 },
+  totalView: { flexDirection: "row", justifyContent: "center" },
+});
 
 export default NotificationsScreen;

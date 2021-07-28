@@ -24,7 +24,6 @@ const NotificationsState = (props) => {
 
   const getAsyncStoredNotifications = async () => {
     setLoading();
-
     try {
       const jsonValue = await AsyncStorage.getItem("@DanFit_notifications");
       if (jsonValue != null) {
@@ -37,6 +36,7 @@ const NotificationsState = (props) => {
       // error reading value
       console.log(e);
     }
+
   };
 
   const saveNotificationsToStorage = async (notifications) => {
@@ -61,6 +61,36 @@ const NotificationsState = (props) => {
     dispatch({ type: SET_NOTIFICATIONS, payload: notifications });
   }
 
+  const setPastNotificationsToOff = () => {
+    const today = new Date();
+    if(state.notifications.length >0){
+      const tempArray = state.notifications;
+      for(let i = 0; i < tempArray.length;i++){
+          if(!("date" in tempArray[i])){
+            tempArray[i].date = today;
+          }
+      }
+      setNotifications(tempArray)
+      saveNotificationsToStorage(tempArray)
+    }
+
+    if(state.notifications.length > 0){
+      const newNotificationsArray = state.notifications
+      for(let i = 0; i < newNotificationsArray.length; i++){
+        let newDate = new Date(newNotificationsArray[i].date)
+        if(newDate.getDate() > today.getDate()){
+          continue
+        } else if(newNotificationsArray[i].hour < today.getHours()){
+          newNotificationsArray[i].on = false
+        }
+      }
+      setNotifications(newNotificationsArray)
+      saveNotificationsToStorage(newNotificationsArray)
+    }
+
+
+  }
+
   return (
     <NotificationsContext.Provider
       value={{
@@ -69,7 +99,8 @@ const NotificationsState = (props) => {
         getAsyncStoredNotifications,
         saveNotificationsToStorage,
         deleteNotificationsFromStorage,
-        setNotifications
+        setNotifications,
+        setPastNotificationsToOff
       }}
     >
       {props.children}
