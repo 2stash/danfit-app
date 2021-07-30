@@ -203,7 +203,7 @@ const DanWod = () => {
             <View style={{ width: "100%" }}>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   height: 30,
                   justifyContent: "center",
                 }}
@@ -250,7 +250,7 @@ const DanWod = () => {
             <View style={{ width: "100%" }}>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   height: 30,
                   justifyContent: "center",
                 }}
@@ -299,7 +299,7 @@ const DanWod = () => {
             <View style={{ width: "100%" }}>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   height: 30,
                   justifyContent: "center",
                 }}
@@ -346,7 +346,7 @@ const DanWod = () => {
             <View style={{ width: "100%" }}>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   height: 30,
                   justifyContent: "center",
                 }}
@@ -393,7 +393,7 @@ const DanWod = () => {
             <View style={{ width: "100%" }}>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   height: 30,
                   justifyContent: "center",
                 }}
@@ -495,8 +495,8 @@ const styles = StyleSheet.create({
   completeSetDone: {
     width: 200,
     backgroundColor: constants.mainLightBlue,
-    height: 70,
-    marginTop: 20,
+    height: 40,
+    marginTop: 10,
     justifyContent: "center",
     borderRadius:10
   },
