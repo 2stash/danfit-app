@@ -237,7 +237,7 @@ const NotificationsScreen = ({ navigation }) => {
   }, []);
 
   useEffect(()=> {
-    setPastNotificationsToOff()
+    // setPastNotificationsToOff()
   },[])
 
   // useEffect(()=> {
